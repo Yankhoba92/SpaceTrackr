@@ -195,9 +195,9 @@ class Room
         return $this->user;
     }
 
-    public function setUser(?user $userId): static
+    public function setUser(?user $user): static
     {
-        $this->user = $userId;
+        $this->user = $user;
 
         return $this;
     }

@@ -76,9 +76,9 @@ class Reservation
         return $this->user;
     }
 
-    public function setUser(?User $UserId): static
+    public function setUser(?User $user): static
     {
-        $this->user = $UserId;
+        $this->user = $user;
 
         return $this;
     }
