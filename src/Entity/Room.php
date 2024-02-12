@@ -44,7 +44,7 @@ class Room
     private Collection $reservations;
 
     #[ORM\ManyToOne(inversedBy: 'rooms')]
-    private ?user $userId = null;
+    private ?user $user = null;
 
     #[ORM\ManyToMany(targetEntity: Feature::class, mappedBy: 'room')]
     private Collection $features;
@@ -190,14 +190,14 @@ class Room
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getUser(): ?user
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?user $userId): static
+    public function setUser(?user $userId): static
     {
-        $this->userId = $userId;
+        $this->user = $userId;
 
         return $this;
     }
