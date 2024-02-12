@@ -44,6 +44,7 @@ class Room
     private Collection $reservations;
 
     #[ORM\ManyToOne(inversedBy: 'rooms')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?user $user = null;
 
     #[ORM\ManyToMany(targetEntity: Feature::class, mappedBy: 'room')]
