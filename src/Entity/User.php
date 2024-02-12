@@ -30,6 +30,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $username = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $userPicture = null;
 
@@ -115,6 +118,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    public function removeRoom(Room $room): static
+    {
+        if ($this->rooms->removeElement($room)) {
+            // set the owning side to null (unless already changed)
+            if ($room->getUser() === $this) {
+                $room->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
     public function getUserPicture(): ?string
     {
         return $this->userPicture;
@@ -139,7 +166,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations->add($reservation);
-            $reservation->setUserId($this);
+            $reservation->setUser($this);
         }
 
         return $this;
@@ -149,8 +176,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
-            if ($reservation->getUserId() === $this) {
-                $reservation->setUserId(null);
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
             }
         }
 
@@ -169,19 +196,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->rooms->contains($room)) {
             $this->rooms->add($room);
-            $room->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRoom(Room $room): static
-    {
-        if ($this->rooms->removeElement($room)) {
-            // set the owning side to null (unless already changed)
-            if ($room->getUserId() === $this) {
-                $room->setUserId(null);
-            }
+            $room->setUser($this);
         }
 
         return $this;
