@@ -209,7 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->rooms->add($room);
             $room->setUser($this);
         }
-<<<<<<< HEAD
 
         return $this;
     }
@@ -234,8 +233,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeInterface $UpdatedAt): static
     {
         $this->UpdatedAt = $UpdatedAt;
-=======
->>>>>>> c612e5a98529c701322485eba20f6fdd9f9a6a82
 
         return $this;
     }
