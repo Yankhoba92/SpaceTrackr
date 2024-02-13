@@ -1,0 +1,31 @@
+{# templates/room/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous les rooms
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Tous les rooms</h1>
+
+		<div class="row">
+			{% for room in rooms %}
+				<div class="col-md-4 mb-4">
+					<div class="card">
+						<img src="{{ room.roomPicture }}" class="card-img-top" alt="{{ room.name }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ room.name }}</h5>
+							<p class="card-text">{{ room.description }}</p>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Prix:
+									{{ room.price }}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
