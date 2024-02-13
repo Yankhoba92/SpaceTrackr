@@ -1,18 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ app.user.username }} | Profil
+	{{ app.user.username }}
+	| Profil
 {% endblock %}
 
 {% block body %}
-		{# card bootstrap profil #}
-		<div class="container">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">{{ app.user.username }}</h5>
-					<p class="card-text">{{ app.user.email }}</p>
-					<p class="visually-hidden"> {{ app.user.password }} </p>
+	{# card bootstrap profil avec un boutton pour modifier le profil #}
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Mon profil</h5>
+			</div>
+			<div class=' d-flex justify-content-center align-items-center p-5'>
+				<div class="d-flex flex-column gap-3 border-end p-3">
+					<div style="width: 150px; height: 150px; overflow: hidden ;position: relative" class="rounded-circle shadow-4">
+						<img src="/uploads/{{ app.user.userPicture }}" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+					</div>
+					<span>Crée le :
+						{{ app.user.createdAt|date('d/m/Y') }}</span>
+				</div>
+				<div class="ms-5">
+					<div class="card-body">
+						<h5 class="card-title">{{ app.user.username }}</h5>
+						<p class="card-text">{{ app.user.email }}</p>
+					</div>
 				</div>
 			</div>
+			<div class='d-flex justify-content-center'>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+					Modifier le profil
+				</button>
+			</div>
 		</div>
+	</div>
+
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="ProfilModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Modifier Profil</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				{{ form_start(form) }}
+				<div class="modal-body">
+					{{ form_row(form.username,) }}
+					{{ form_row(form.userPicture) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					{{ form_widget(form.save) }}
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

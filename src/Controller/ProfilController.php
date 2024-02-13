@@ -2,27 +2,29 @@
 
 namespace App\Controller;
 
-use App\Form\UserType;
-use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ProfilType;
+use App\Service\ProfileService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProfilController extends AbstractController
 {
     #[Route('/profil', name: 'profil')]
-    public function index(UserType $form, UserRepository $userRepository): Response
+    public function index(ProfilType $form, EntityManagerInterface $em, ProfileService $profileService, Request $request): Response
     {
-        $form = $this->createForm(UserType::class);
-        $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($form->getData()->getPlainPassword());
-            $this->addFlash('notice', 'Profil mis a jour');
+        $form = $this->createForm(ProfilType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $profileService->updateProfile($form, $this->getUser(), $em, $this->getParameter('uploads_directory'));
+            
+            $this->addFlash('success', 'Your profile has been updated');
+            return $this->redirectToRoute('profil');
         }
-
         return $this->render('profil/index.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 }
