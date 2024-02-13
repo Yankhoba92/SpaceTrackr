@@ -182,7 +182,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-<<<<<<< HEAD
     /**
      * @return Collection<int, Room>
      */
@@ -201,8 +200,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-=======
->>>>>>> 14a5f7bed0e13310054f37641a888ffa34131491
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->CreatedAt;
