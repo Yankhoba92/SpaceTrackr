@@ -18,7 +18,7 @@
                 <p class="card-text">{{ room.city }}, {{ room.address }}</p>
                 <p class="card-text b">Capacité : {{ room.capacity }} personnes</p>
 
-                <div class="d-flex gap-5">
+                <div class="d-flex gap-5 mb-5">
                     <div class="d-flex flex-column">
                         <p class="card-text fw-bold">Features :</p>
                         {% for item in room.features %}
@@ -40,6 +40,13 @@
                         {% endfor %}
                     </div>
                 </div>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Réserver
+                </button>
+                
+                {{ include('components/modal.html.twig') }}
             </div>
         </div>
     </div>
