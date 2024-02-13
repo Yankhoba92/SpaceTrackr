@@ -15,11 +15,17 @@ class ReservationType extends AbstractType
         $builder
             ->add('startDate', DateType::class, [
                 'label' => 'Date de début :',
-                'attr' => ['class' => 'ms-2 mb-2'],
+                'attr' => [
+                    'class' => 'ms-2 mb-2',
+                    'min' => date('Y-m-d'),
+                ],
             ])
             ->add('endDate', DateType::class, [
                 'label' => 'Date de fin :',
-                'attr' => ['class' => 'ms-2 mb-2'],
+                'attr' => [
+                    'class' => 'ms-2 mb-2',
+                    'min' => date('Y-m-d'),
+                ],
             ]);
     }
 
