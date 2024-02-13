@@ -191,7 +191,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setUser(null);
             }
         }
-
         return $this;
     }
 
