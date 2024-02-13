@@ -117,11 +117,10 @@
 				{{ form_end(registrationForm) }}
 			{% endif %}
 		</div>
-
 	</div>
 
 	<script>
-		// Regex to check if password contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character and is at least 8 characters long
+	// Regex to check if password contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character and is at least 8 characters long
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 // Regex to check if the 2 passwords match
