@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ room.name|slice(0, 15) }}...
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <img src="{{ room.roomPicture }}" class="card-img-top mx-auto mb-3" alt="..." style="width: 640px; height: 480px;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{ room.name }}</h5>
+                    <p class="card-text fw-bold">{{ room.price }} €</p>
+                </div>
+
+                <p class="card-text">{{ room.description }}</p>
+                <p class="card-text">{{ room.city }}, {{ room.address }}</p>
+                <p class="card-text b">Capacité : {{ room.capacity }} personnes</p>
+
+                <div class="d-flex gap-5">
+                    <div class="d-flex flex-column">
+                        <p class="card-text fw-bold">Features :</p>
+                        {% for item in room.features %}
+                            <p class="card-text">- {{ item.name }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <p class="card-text fw-bold">Materials :</p>
+                        {% for item in room.materials %}
+                            <p class="card-text">- {{ item.name }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <p class="card-text fw-bold">Softwares :</p>
+                        {% for item in room.software %}
+                            <p class="card-text">- {{ item.name }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
