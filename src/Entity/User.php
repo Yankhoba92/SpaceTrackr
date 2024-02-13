@@ -129,18 +129,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function removeRoom(Room $room): static
-    {
-        if ($this->rooms->removeElement($room)) {
-            // set the owning side to null (unless already changed)
-            if ($room->getUser() === $this) {
-                $room->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUsername(): ?string
     {
         return $this->username;
@@ -194,6 +182,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * @return Collection<int, Room>
      */
@@ -212,6 +201,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+=======
+>>>>>>> 14a5f7bed0e13310054f37641a888ffa34131491
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->CreatedAt;

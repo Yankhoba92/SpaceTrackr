@@ -43,10 +43,6 @@ class Room
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'room')]
     private Collection $reservations;
 
-    #[ORM\ManyToOne(inversedBy: 'rooms')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     #[ORM\ManyToMany(targetEntity: Feature::class, mappedBy: 'room')]
     private Collection $features;
 
@@ -54,14 +50,14 @@ class Room
     private Collection $materials;
 
     #[ORM\ManyToMany(targetEntity: Software::class, mappedBy: 'room')]
-    private Collection $software;
+    private Collection $softwares;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->features = new ArrayCollection();
         $this->materials = new ArrayCollection();
-        $this->software = new ArrayCollection();
+        $this->softwares = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,18 +191,6 @@ class Room
         return $this;
     }
 
-    public function getUser(): ?user
-    {
-        return $this->user;
-    }
-
-    public function setUser(?user $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Feature>
      */
@@ -266,13 +250,13 @@ class Room
      */
     public function getSoftware(): Collection
     {
-        return $this->software;
+        return $this->softwares;
     }
 
     public function addSoftware(Software $software): static
     {
-        if (!$this->software->contains($software)) {
-            $this->software->add($software);
+        if (!$this->softwares->contains($software)) {
+            $this->softwares->add($software);
             $software->addRoom($this);
         }
 
@@ -281,7 +265,7 @@ class Room
 
     public function removeSoftware(Software $software): static
     {
-        if ($this->software->removeElement($software)) {
+        if ($this->softwares->removeElement($software)) {
             $software->removeRoom($this);
         }
 

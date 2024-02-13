@@ -13,9 +13,16 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+<<<<<<< HEAD:src/Form/ProfilType.php
             ->add('username', null, [
                 'required' => false
             ])
+=======
+            ->add('email', EmailType::class,)
+            ->add('password', PasswordType::class)
+            ->add('username')
+            ->add('roles')
+>>>>>>> 14a5f7bed0e13310054f37641a888ffa34131491:src/Form/UserType.php
             ->add('userPicture', FileType::class , [
                 'required' => false,
                 'mapped' => false,
