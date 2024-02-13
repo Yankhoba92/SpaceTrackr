@@ -19,11 +19,11 @@ class Software
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: room::class, inversedBy: 'softwares')]
-    private Collection $rooms;
+    private Collection $room;
 
     public function __construct()
     {
-        $this->rooms = new ArrayCollection();
+        $this->room = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,13 +48,13 @@ class Software
      */
     public function getRoom(): Collection
     {
-        return $this->rooms;
+        return $this->room;
     }
 
     public function addRoom(room $room): static
     {
-        if (!$this->rooms->contains($room)) {
-            $this->rooms->add($room);
+        if (!$this->room->contains($room)) {
+            $this->room->add($room);
         }
 
         return $this;
@@ -62,7 +62,7 @@ class Software
 
     public function removeRoom(room $room): static
     {
-        $this->rooms->removeElement($room);
+        $this->room->removeElement($room);
 
         return $this;
     }
