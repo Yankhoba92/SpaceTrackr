@@ -105,7 +105,9 @@ class AppFixtures extends Fixture
             for ($i = 0; $i < 3; $i++) {
                 $reservation = new Reservation();
                 $startDate = $faker->dateTimeBetween('now', '+1 month');
-                $endDate = $faker->dateTimeBetween($startDate, '+1 week');
+                $endDate = clone $startDate;
+                $endDate->modify('+1 week');
+
                 $reservation->setStartDate($startDate)
                     ->setEndDate($endDate)
                     ->setStatus($faker->boolean)
