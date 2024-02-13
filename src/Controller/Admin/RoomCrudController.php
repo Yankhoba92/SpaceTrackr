@@ -25,9 +25,9 @@ class RoomCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            AssociationField::new('user')
-                            ->formatValue(fn ($value) => $value->getUserName())
-                            ->autocomplete(),
+            // AssociationField::new('user')
+            //                 ->formatValue(fn ($value) => $value->getUserName())
+            //                 ->autocomplete(),
             TextField::new('name'),
             TextEditorField::new('description'),
             MoneyField::new('price')->setCurrency('EUR'),
