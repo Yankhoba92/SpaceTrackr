@@ -30,7 +30,6 @@ class RegistrationController extends AbstractController
                     )
                 );
             } else {
-                $this->addFlash('notice', 'Password does not match');
                 return $this->render('registration/register.html.twig', [
                     'registrationForm' => $form,
                 ]);
@@ -38,6 +37,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+    
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('Home');
