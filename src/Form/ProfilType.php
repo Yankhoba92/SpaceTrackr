@@ -2,28 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class UserType extends AbstractType
+class ProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class,)
-            ->add('password', PasswordType::class)
-            ->add('username')
-            ->add('roles')
+            ->add('username', null, [
+                'required' => false
+            ])
             ->add('userPicture', FileType::class , [
                 'required' => false,
                 'mapped' => false,
                 'attr' => [
                     'accept' => 'image/*'
+                ]
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Save Changes',
+                'attr' => [
+                    'class' => 'btn btn-primary'
                 ]
             ])
         ;
@@ -32,7 +35,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            // Configure your form options here
         ]);
     }
 }

@@ -109,7 +109,7 @@
 					class="text-center mt-3">
 					<!-- TODO: add route to sign in -->
 					<p>Vous avez déjà un compte ?
-						<a href={{ path('app_login') }} class="text-decoration-none">Connexion</a>
+						<a href={{ path('login') }} class="text-decoration-none">Connexion</a>
 					</p>
 				</div>
 				<p class="mt-5 mb-3 text-body-secondary text-center">&copy;
@@ -117,11 +117,10 @@
 				{{ form_end(registrationForm) }}
 			{% endif %}
 		</div>
-
 	</div>
 
 	<script>
-		// Regex to check if password contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character and is at least 8 characters long
+	// Regex to check if password contains at least 1 uppercase, 1 lowercase, 1 number and 1 special character and is at least 8 characters long
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 // Regex to check if the 2 passwords match
