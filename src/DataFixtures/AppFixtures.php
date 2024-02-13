@@ -86,9 +86,8 @@ class AppFixtures extends Fixture
                     ->setAddress($faker->streetAddress)
                     ->setCapacity($faker->numberBetween(5, 50))
                     ->setDescription($faker->text)
-                    ->setPrice($faker->randomFloat(2, 50, 500))
-                    ->setRoomPicture($faker->imageUrl())
-                    ->setUser($user);
+                    ->setPrice($faker->randomNumber(3, false))
+                    ->setRoomPicture($faker->imageUrl());
 
                 for ($j = 0; $j < 2; $j++) {
                     $room->addFeature($faker->randomElement($featuresEntity))
@@ -105,8 +104,8 @@ class AppFixtures extends Fixture
         foreach ($users as $user) {
             for ($i = 0; $i < 3; $i++) {
                 $reservation = new Reservation();
-                $startDate = $faker->dateTimeBetween('-1 month', 'now');
-                $endDate = $faker->dateTimeBetween($startDate, '+2 month');
+                $startDate = $faker->dateTimeBetween('now', '+1 month');
+                $endDate = $faker->dateTimeBetween($startDate, '+1 week');
                 $reservation->setStartDate($startDate)
                     ->setEndDate($endDate)
                     ->setStatus($faker->boolean)
