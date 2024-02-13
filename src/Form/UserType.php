@@ -18,6 +18,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class,)
             ->add('password', PasswordType::class)
             ->add('username')
+            ->add('roles')
             ->add('userPicture', FileType::class , [
                 'required' => false,
                 'mapped' => false,
