@@ -10,6 +10,7 @@ use App\Entity\Room;
 use App\Entity\Reservation;
 use App\Entity\Material;
 use App\Entity\Feature;
+use App\Entity\Software;
 
 class AppFixtures extends Fixture
 {
@@ -52,7 +53,7 @@ class AppFixtures extends Fixture
             $featuresEntity[] = $feature;
         }
 
-        // Créer des matériaux
+        // Créer des materials
         $materials = ['PC', 'Tableau', 'Projecteur', 'Caméra', 'Internet'];
         $materialsEntity = [];
         for ($i = 0; $i < 5; $i++) {
@@ -61,6 +62,17 @@ class AppFixtures extends Fixture
 
             $manager->persist($material);
             $materialsEntity[] = $material;
+        }
+
+        // Créer des softwares
+        $softwares = ['VS Code', 'Pack Office', 'Adobe Photoshop', 'Adobe XD'];
+        $softwaresEntity = [];
+        for ($i = 0; $i < 4; $i++) {
+            $software = new Software();
+            $software->setName($softwares[$i]);
+
+            $manager->persist($software);
+            $softwaresEntity[] = $software;
         }
 
         // Créer des rooms
@@ -80,7 +92,8 @@ class AppFixtures extends Fixture
 
                 for ($j = 0; $j < 2; $j++) {
                     $room->addFeature($faker->randomElement($featuresEntity))
-                        ->addMaterial($faker->randomElement($materialsEntity));
+                        ->addMaterial($faker->randomElement($materialsEntity))
+                        ->addSoftware($faker->randomElement($softwaresEntity));
                 }
 
                 $manager->persist($room);
