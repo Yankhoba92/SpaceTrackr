@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Rooms
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="mt-4 mb-4">Rooms</h1>
+
+		<div class="row">
+			{% for room in rooms %}
+				<div class="col-md-4 mb-4">
+					<a href="{{ path('app_room', {'id': room.id}) }}" class="text-decoration-none">
+						<div class="card">
+							<img src="{{ room.roomPicture }}" class="card-img-top" alt="{{ room.name }}">
+							<div class="card-body">
+								<h5 class="card-title">{{ room.name }}</h5>
+								<p class="card-text">{{ room.description }}</p>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">Prix : <span class="fw-bold">{{ room.price }} €</span></li>
+								</ul>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="container vh-100 d-flex align-items-center">
+    <div class="form-signing w-100 m-auto">
+        {% if app.user %}
+            <div class="alert alert-info text-center col-6 m-auto" role="alert">
+                <h2>
+                    Vous êtes déjà connecté(e) en tant que {{ app.user.userIdentifier }}
+                </h2>
+                <div class="text-center mt-5">
+                    <a href="/" class="btn btn-dark">Retour à la page d'accueil</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Logout</a>
+                </div>
+            </div>
+        {% else %}
+
+        <form method="post" class="col-md-4 col-sm-10 m-auto bg-light p-3 rounded">
+            <h1 class="h3 mb-3 fw-normal text-center">Connexion</h1>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <div class="form-floating mb-2">
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputEmail">E-mail</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <label for="inputPassword">Mot de passe</label>
+            </div>
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+            <button class="btn btn-primary w-100 py-2" type="submit">Connexion</button>
+            <div class="text-center mt-3"> <!-- TODO: add route to sign in -->
+                <p>Vous n'avez pas de compte ? <a href={{ path('app_register') }} class="text-decoration-none">Inscription</a></p>
+            </div>
+            <p class="mt-5 mb-3 text-body-secondary text-center">&copy; {{ 'now'|date('Y') }}</p>
+        </form>
+        {% endif %}
+</div>
+{% endblock %}
