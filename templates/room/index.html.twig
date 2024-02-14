@@ -50,21 +50,29 @@
                 </div>
 
                 <div class="d-flex flex-column mb-5">
-                    {% for item in room.reservations %}
-                        {% if item.status == 'true' %}
-                            {% if item.endDate > date() and item.startDate < date() %}
-                                <div class="d-flex flex-column mb-3">
-                                    <h5 class="mb-3 fw-bold">Actuellement indisponible :</h5>
+                    <div class="d-flex flex-column mb-3">
+                        <h5 class="mb-3 fw-bold">Actuellement indisponible :</h5>
+                        
+                        {% for item in room.reservations %}
+                            {% if item.status == 'true' %}
+                                {% if item.endDate > date() and item.startDate < date() %}
                                     <p><i class="bi bi-x-circle text-danger me-2"></i>du {{ item.startDate|date('d/m/Y') }} au {{ item.endDate|date('d/m/Y') }}</p>
-                                </div>
-                            {% elseif item.startDate > date() %}
-                                <div class="d-flex flex-column">
-                                    <h5 class="mb-3 fw-bold">Sera indisponible :</h5>
-                                    <p><i class="bi bi-x-circle text-danger me-2"></i>du {{ item.startDate|date('d/m/Y') }} au {{ item.endDate|date('d/m/Y') }}</p>
-                                </div>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex flex-column mb-3">
+                        <h5 class="mb-3 fw-bold">Sera indisponible :</h5>
+
+                        {% for item in room.reservations %}
+                            {% if item.status == 'true' %}
+                                {% if item.startDate > date() %}
+                                    <p><i class="bi bi-x-circle text-danger me-2"></i>du {{ item.startDate|date('d/m/Y') }} au {{ item.endDate|date('d/m/Y') }}</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <!-- Button trigger modal -->
