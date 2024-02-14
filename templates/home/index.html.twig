@@ -9,6 +9,9 @@
 		<h1 class="mt-4 mb-4">Rooms</h1>
 
 		<div class="row">
+		 {% if rooms is empty %}
+                <p>Aucune salle correspondant à votre recherche n'a été trouvée.</p>
+            {% else %}
 			{% for room in rooms %}
 				<div class="col-md-4 mb-4">
 					<a href="{{ path('app_room', {'id': room.id}) }}" class="text-decoration-none">
@@ -25,6 +28,7 @@
 					</a>
 				</div>
 			{% endfor %}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}
