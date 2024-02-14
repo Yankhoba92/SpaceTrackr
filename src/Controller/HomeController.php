@@ -24,18 +24,11 @@ class HomeController extends AbstractController
     {
         $query = $request->query->get('query');
         if (!$query) {
-            // Si aucune requête n'est fournie, redirigez vers la page d'index des salles
             return $this->redirectToRoute('app_room');
         }
-
-        // Utilisez le repository des salles pour rechercher les salles par nom
         $roomsByName = $roomRepository->findByName($query);
         $roomsByDescription = $roomRepository->findByDescription($query);
-    
-        // Fusionnez les résultats des deux recherches
         $rooms = array_merge($roomsByName, $roomsByDescription);
-        
-        // Supprimez les doublons en cas de chevauchement entre les deux résultats
         $rooms = array_unique($rooms, SORT_REGULAR);
         return $this->render('home/index.html.twig', [
             'rooms' => $rooms,
