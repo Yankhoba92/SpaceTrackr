@@ -22,19 +22,19 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
 //    /**
+//     * Search all reservation and return all dates between start and end.
+//     * 
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    // public function findByName($value): array
+    // {
+    //     $qb = $this->createQueryBuilder('r');
+    //     return $qb->andWhere($qb->expr()->like('LOWER (r.name)', ':val'))
+    //         ->setParameter('val', '%'.$value.'%')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
 //    public function findOneBySomeField($value): ?Reservation
 //    {
@@ -45,4 +45,13 @@ class ReservationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findByStatus($room) {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.status = true AND r.room = :room')
+            ->setParameter('room', $room)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
