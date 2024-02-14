@@ -25,10 +25,6 @@ class RoomType extends AbstractType
             ->add('description')
             ->add('price')
             ->add('roomPicture')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-'choice_label' => 'id',
-            ])
             ->add('features', EntityType::class, [
                 'class' => Feature::class,
 'choice_label' => 'id',
