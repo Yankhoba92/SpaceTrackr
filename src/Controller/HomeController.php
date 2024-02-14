@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\RoomRepository;
 use App\Repository\FeatureRepository;
+use App\Repository\MaterialRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,12 +17,16 @@ class HomeController extends AbstractController
         Request $request,
         RoomRepository $roomRepository,
         FeatureRepository $featureRepository,
+        MaterialRepository $materialRepository,
     ): Response {
         $rooms = $roomRepository->findAll();
         $features =  $featureRepository->findAll();
+        $materials =  $materialRepository->findAll();
 
         $featureIds = $request->query->all()['features'] ?? [];
         $selectedFeatures = [];
+        $materialIDs = $request->query->all()['materials'] ?? [];
+        $selectedMaterials = [];
 
         if (is_iterable($featureIds)) {
             foreach ($featureIds as $featureId) {
@@ -32,11 +37,22 @@ class HomeController extends AbstractController
                 }
             }
         }
+        if (is_iterable($materialIDs)) {
+            foreach ($materialIDs as $materialID) {
+                $material = $materialRepository->find($materialID);
+
+                if ($material) {
+                    $selectedMaterials[] = $material;
+                }
+            }
+        }
 
         return $this->render('home/index.html.twig', [
             'rooms' => $rooms,
             'features' => $features,
-            'selectedFeatures' => $selectedFeatures
+            'materials' => $materials,
+            'selectedFeatures' => $selectedFeatures,
+            'selectedMaterials' => $selectedMaterials
         ]);
     }
 

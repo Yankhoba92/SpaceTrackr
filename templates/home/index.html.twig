@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="form-check mb-4">
+        {# <div class="form-check mb-4">
             <form method="get">
                 <h5 class="mb-2 fw-bold">Features:</h5>
 	
@@ -51,6 +51,10 @@
 					{% endif %}
 				{% endfor %}
             {% endif %}
-        </div>
+             
+        </div> #}
+        {{ include('components/material_filter.html.twig') }}
+
     </div>
+
 {% endblock %}
