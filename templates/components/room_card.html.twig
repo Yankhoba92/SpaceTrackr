@@ -1,0 +1,14 @@
+<div class="col-md-4 mb-4">
+    <a href="{{ path('app_room', {'id': room.id}) }}" class="text-decoration-none">
+        <div class="card">
+            <img src="{{ room.roomPicture }}" class="card-img-top" alt="{{ room.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ room.name }}</h5>
+                <p class="card-text">{{ room.description }}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Prix : <span class="fw-bold">{{ room.price }} €</span></li>
+                </ul>
+            </div>
+        </div>
+    </a>
+</div>

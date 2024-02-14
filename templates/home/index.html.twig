@@ -1,34 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Rooms
+    Rooms
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4 mb-4">Rooms</h1>
+    <div class="container">
+        <div class="form-check mb-4">
+            <form method="get">
+                <h5 class="mb-2 fw-bold">Features:</h5>
+	
+                {% for item in features %}
+                    <div>
+                        <input type="checkbox" name="features[]" id="feature_{{ item.id }}" value="{{ item.id }}" class="form-check-input"
+                            {% if selectedFeatures and item.id in selectedFeatures|map(item => item.id) %}
+                                checked
+                            {% endif %}
+                        >
+                        <label for="feature_{{ item.id }}" class="form-check-label">{{ item.name }}</label>
+                    </div>
+                {% endfor %}
 
-		<div class="row">
-		 {% if rooms is empty %}
-                <p>Aucune salle correspondant à votre recherche n'a été trouvée.</p>
+                <button type="submit" class="btn btn-primary mt-3">Filter</button>
+            </form>
+        </div>
+
+        <div class="row">
+            {% if selectedFeatures|length == 0 %}
+				{% for room in rooms %}
+					{{ include('components/room_card.html.twig') }}
+				{% endfor %}
             {% else %}
-			{% for room in rooms %}
-				<div class="col-md-4 mb-4">
-					<a href="{{ path('app_room', {'id': room.id}) }}" class="text-decoration-none">
-						<div class="card">
-							<img src="{{ room.roomPicture }}" class="card-img-top" alt="{{ room.name }}">
-							<div class="card-body">
-								<h5 class="card-title">{{ room.name }}</h5>
-								<p class="card-text">{{ room.description }}</p>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">Prix : <span class="fw-bold">{{ room.price }} €</span></li>
-								</ul>
-							</div>
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-			{% endif %}
-		</div>
-	</div>
+				{% for room in rooms %}
+					{% set featuresMatch = true %}
+					{% set exitLoop = false %}
+
+					{% for selectedFeature in selectedFeatures %}
+						{% if selectedFeature not in room.features %}
+							{% set featuresMatch = false %}
+							{% set exitLoop = true %}
+						{% endif %}
+					{% endfor %}
+
+					{% if featuresMatch %}
+						{{ include('components/room_card.html.twig') }}
+					{% endif %}
+
+					{% if exitLoop %}
+						{% set featuresMatch = false %}
+					{% endif %}
+				{% endfor %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
