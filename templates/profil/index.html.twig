@@ -15,7 +15,7 @@
 			<div class=' d-flex justify-content-center align-items-center p-5'>
 				<div class="d-flex flex-column gap-3 border-end p-3">
 					<div style="width: 150px; height: 150px; overflow: hidden ;position: relative" class="rounded-circle shadow-4">
-						<img src="/uploads/{{ app.user.userPicture }}" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+						<img src="{{ app.user.userPicture }}" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
 					</div>
 					<span>Crée le :
 						{{ app.user.createdAt|date('d/m/Y') }}</span>
