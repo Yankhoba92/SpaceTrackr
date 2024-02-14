@@ -40,11 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $userPicture = null;
 
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'UserId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $reservations;
-
-    #[ORM\OneToMany(targetEntity: Room::class, mappedBy: 'userId')]
-    private Collection $rooms;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $CreatedAt = null;
@@ -55,7 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->rooms = new ArrayCollection();
         $this->CreatedAt = new \DateTime();
     }
 
@@ -181,25 +177,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
-
-    /**
-     * @return Collection<int, Room>
-     */
-    public function getRooms(): Collection
-    {
-        return $this->rooms;
-    }
-
-    public function addRoom(Room $room): static
-    {
-        if (!$this->rooms->contains($room)) {
-            $this->rooms->add($room);
-            $room->setUser($this);
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->CreatedAt;
