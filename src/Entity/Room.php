@@ -248,7 +248,7 @@ class Room
     /**
      * @return Collection<int, Software>
      */
-    public function getSoftware(): Collection
+    public function getSoftwares(): Collection
     {
         return $this->softwares;
     }
