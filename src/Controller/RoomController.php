@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,16 +18,31 @@ class RoomController extends AbstractController
     public function index(
         Request $request,
         RoomRepository $roomRepository,
+        ReservationRepository $reservationRepository,
         EntityManagerInterface $entityManager
     ): Response {
         $room = $roomRepository->findOneBy(
             ['id' => $request->get('id')]
         );
-
         $reservation = new Reservation();
         $reservationForm = $this->createForm(ReservationType::class, $reservation);
         $reservationForm->handleRequest($request);
 
+        // TODO: Deplacer ce code dans le controller de CRUD admin
+        // Suppression des reservations non acceptées
+        $reservations = $reservationRepository->findAll();
+        $acceptedReservation = $reservationRepository->findByStatus($room->getId());
+
+        if ($acceptedReservation) { // Si j'ai une réservation accepté
+            foreach ($reservations as $reservation) { // je boucle pour voir si j'ai une reservation qui n'est pas acceptée
+                if (!$acceptedReservation) { // si la reservation n'est pas acceptée
+                    $reservationRepository->removeElement($reservation); // j'enleve la reservation
+                }
+            }
+        }
+
+        // Fin du code de suppression des reservations non acceptées
+        
         if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
             if (!$this->getUser()) {
                 return $this->redirectToRoute('app_login');
