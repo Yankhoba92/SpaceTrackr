@@ -11,10 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/room')]
 class RoomController extends AbstractController
 {
-    #[Route('/{id}', name: 'app_room')]
+    #[Route('/room/{id}', name: 'app_room')]
     public function index(
         Request $request,
         RoomRepository $roomRepository,
