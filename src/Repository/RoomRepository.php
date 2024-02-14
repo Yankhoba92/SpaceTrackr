@@ -21,20 +21,29 @@ class RoomRepository extends ServiceEntityRepository
         parent::__construct($registry, Room::class);
     }
 
-//    /**
-//     * @return Room[] Returns an array of Room objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Room[] Returns an array of Room objects
+    */
+   public function findByName($value): array
+   {
+       $qb = $this->createQueryBuilder('r');
+       return $qb->andWhere($qb->expr()->like('LOWER (r.name)', ':val'))
+           ->setParameter('val', '%'.$value.'%')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+   public function findByDescription($value): array
+{
+    $qb = $this->createQueryBuilder('r');
+    return $qb->andWhere($qb->expr()->like('LOWER (r.description)', ':val'))
+        ->setParameter('val', '%'.$value.'%')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
 
 //    public function findOneBySomeField($value): ?Room
 //    {
