@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
 
                 $reservation->setStartDate($startDate)
                     ->setEndDate($endDate)
-                    ->setStatus($faker->boolean)
+                    ->setStatus(false)
                     ->setUser($user)
                     ->setRoom($faker->randomElement($rooms));
 
