@@ -27,12 +27,23 @@ class RoomRepository extends ServiceEntityRepository
    public function findByName($value): array
    {
        $qb = $this->createQueryBuilder('r');
-       return $qb->andWhere($qb->expr()->like('r.name', ':val'))
+       return $qb->andWhere($qb->expr()->like('LOWER (r.name)', ':val'))
            ->setParameter('val', '%'.$value.'%')
            ->getQuery()
            ->getResult()
        ;
    }
+
+   public function findByDescription($value): array
+{
+    $qb = $this->createQueryBuilder('r');
+    return $qb->andWhere($qb->expr()->like('LOWER (r.description)', ':val'))
+        ->setParameter('val', '%'.$value.'%')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
 
 //    public function findOneBySomeField($value): ?Room
 //    {

@@ -29,7 +29,14 @@ class HomeController extends AbstractController
         }
 
         // Utilisez le repository des salles pour rechercher les salles par nom
-        $rooms = $roomRepository->findByName($query);
+        $roomsByName = $roomRepository->findByName($query);
+        $roomsByDescription = $roomRepository->findByDescription($query);
+    
+        // Fusionnez les résultats des deux recherches
+        $rooms = array_merge($roomsByName, $roomsByDescription);
+        
+        // Supprimez les doublons en cas de chevauchement entre les deux résultats
+        $rooms = array_unique($rooms, SORT_REGULAR);
         return $this->render('home/index.html.twig', [
             'rooms' => $rooms,
         ]);
