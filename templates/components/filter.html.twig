@@ -1,5 +1,5 @@
-<div class="container">
-    <form method="get">
+<div class="container d-flex justify-content-around">
+    <form method="get"  class="m-3">
         <div class="form-check mb-4">
             <h5 class="mb-2 fw-bold">Materials:</h5>
 
@@ -48,7 +48,7 @@
         <button type="submit" class="btn btn-primary mt-3">Filter</button>
     </form>
 
-    <div class="row">
+    <div class="row m-3">
         {% for room in rooms %}
             {% set materialsMatch = true %}
             {% set featuresMatch = true %}
