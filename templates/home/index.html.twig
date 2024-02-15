@@ -5,52 +5,5 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="form-check mb-4">
-            <form method="get">
-                <h5 class="mb-2 fw-bold">Features:</h5>
-	
-                {% for item in features %}
-                    <div>
-                        <input type="checkbox" name="features[]" id="feature_{{ item.id }}" value="{{ item.id }}" class="form-check-input"
-                            {% if selectedFeatures and item.id in selectedFeatures|map(item => item.id) %}
-                                checked
-                            {% endif %}
-                        >
-                        <label for="feature_{{ item.id }}" class="form-check-label">{{ item.name }}</label>
-                    </div>
-                {% endfor %}
-
-                <button type="submit" class="btn btn-primary mt-3">Filter</button>
-            </form>
-        </div>
-
-        <div class="row">
-            {% if selectedFeatures|length == 0 %}
-				{% for room in rooms %}
-					{{ include('components/room_card.html.twig') }}
-				{% endfor %}
-            {% else %}
-				{% for room in rooms %}
-					{% set featuresMatch = true %}
-					{% set exitLoop = false %}
-
-					{% for selectedFeature in selectedFeatures %}
-						{% if selectedFeature not in room.features %}
-							{% set featuresMatch = false %}
-							{% set exitLoop = true %}
-						{% endif %}
-					{% endfor %}
-
-					{% if featuresMatch %}
-						{{ include('components/room_card.html.twig') }}
-					{% endif %}
-
-					{% if exitLoop %}
-						{% set featuresMatch = false %}
-					{% endif %}
-				{% endfor %}
-            {% endif %}
-        </div>
-    </div>
+    {{ include('components/filter.html.twig') }}
 {% endblock %}
