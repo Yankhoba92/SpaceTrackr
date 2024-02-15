@@ -46,4 +46,12 @@ class ReservationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    public function findByStatus($room) {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.status = true AND r.room = :room')
+            ->setParameter('room', $room)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

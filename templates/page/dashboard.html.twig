@@ -1,1 +1,54 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+    <style>
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    
+    <div>
+        <h3 class="my-5 fw-bold">Dashboard</h3>
+
+        <div class="card mb-4">
+            <div class="card-header bg-danger">
+                <h2 class="card-title text-white">Upcoming Reservations</h2>
+            </div>
+
+            {% if reservations is not empty %}
+                {% for reservation in reservations %}
+                    <a href="{{ path('admin', {
+                        'crudAction': 'detail',
+                        'crudControllerFqcn': 'App\\Controller\\Admin\\ReservationCrudController',
+                        'entityId': reservation.id
+                        }) }}"
+                       class="text-dark"
+                    >
+                        <div class="card-body d-flex flex-column border-top">
+                            <h3 class="fw-bold">
+                                Préréservation N°{{ reservation.id }}
+                                    {% if reservation.status == true %}
+                                        <span class="badge bg-primary text-white">
+                                            Accepté
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-danger text-white">
+                                            Non accepté
+                                        </span>
+                                    {% endif %}
+                            </h3>
+
+                            <div class="d-flex flex-column">
+                                <p class="card-text mb-0 fs-5">{{ reservation.startDate|date('Y-m-d H:i:s') }}</p>
+                                <p class="card-text mb-0 fs-5"><strong>Room</strong> : {{ reservation.room.name }}</p>
+                                <p class="card-text fs-5"><strong>User</strong> : {{ reservation.user.username }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No upcoming reservations.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
