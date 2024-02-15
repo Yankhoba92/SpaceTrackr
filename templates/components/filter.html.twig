@@ -1,0 +1,86 @@
+<div class="container">
+    <form method="get">
+        <div class="form-check mb-4">
+            <h5 class="mb-2 fw-bold">Materials:</h5>
+
+            {% for item in materials %}
+                <div>
+                    <input type="checkbox" name="materials[]" id="material_{{ item.id }}" value="{{ item.id }}" class="form-check-input"
+                        {% if selectedMaterials and item.id in selectedMaterials|map(item => item.id) %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="material_{{ item.id }}" class="form-check-label">{{ item.name }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-check mb-4">
+            <h5 class="mb-2 fw-bold">Features:</h5>
+
+            {% for item in features %}
+                <div>
+                    <input type="checkbox" name="features[]" id="feature_{{ item.id }}" value="{{ item.id }}" class="form-check-input"
+                        {% if selectedFeatures and item.id in selectedFeatures|map(item => item.id) %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="feature_{{ item.id }}" class="form-check-label">{{ item.name }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-check mb-4">
+            <h5 class="mb-2 fw-bold">Softwares:</h5>
+
+            {% for item in softwares %}
+                <div>
+                    <input type="checkbox" name="softwares[]" id="software_{{ item.id }}" value="{{ item.id }}" class="form-check-input"
+                        {% if selectedSoftwares and item.id in selectedSoftwares|map(item => item.id) %}
+                            checked
+                        {% endif %}
+                    >
+                    <label for="software_{{ item.id }}" class="form-check-label">{{ item.name }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Filter</button>
+    </form>
+
+    <div class="row">
+        {% for room in rooms %}
+            {% set materialsMatch = true %}
+            {% set featuresMatch = true %}
+            {% set softwaresMatch = true %}
+
+            {% if selectedMaterials %}
+                {% for selectedMaterial in selectedMaterials %}
+                    {% if selectedMaterial not in room.materials %}
+                        {% set materialsMatch = false %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if selectedFeatures %}
+                {% for selectedFeature in selectedFeatures %}
+                    {% if selectedFeature not in room.features %}
+                        {% set featuresMatch = false %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if selectedSoftwares %}
+                {% for selectedSoftware in selectedSoftwares %}
+                    {% if selectedSoftware not in room.softwares %}
+                        {% set softwaresMatch = false %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if materialsMatch and featuresMatch and softwaresMatch %}
+                {{ include('components/room_card.html.twig') }}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
