@@ -3,10 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -15,6 +16,9 @@ class ReservationCrudController extends AbstractCrudController
         return Reservation::class;
     }
 
+    public function configureFilters(Filters $filters): Filters{
+        return $filters->add('startDate');
+    }
     /*
     public function configureFields(string $pageName): iterable
     {
