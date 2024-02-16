@@ -6,7 +6,6 @@ use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,7 +17,6 @@ class RoomController extends AbstractController
     public function index(
         Request $request,
         RoomRepository $roomRepository,
-        ReservationRepository $reservationRepository,
         EntityManagerInterface $entityManager
     ): Response {
         $room = $roomRepository->findOneBy(
